@@ -15,6 +15,7 @@ RUN apt-get update && \
       git \
       gvfs-bin \
       libasound2 \
+      libcanberra-gtk-module \
       libgtk-3-0 \
       libnotify4 \
       libnss3 \
@@ -24,6 +25,7 @@ RUN apt-get update && \
       libxtst6 \
       policykit-1 \
       python \
+      python3-pip \
       xdg-utils && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -37,15 +39,13 @@ RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 1 && \
 RUN curl -L https://github.com/atom/atom/releases/download/${ATOM_VERSION}/atom-amd64.deb > /tmp/atom-amd64.deb && \
     dpkg -i /tmp/atom-amd64.deb && \
     rm -f /tmp/atom-amd64.deb && \
-    useradd -d /home/atom -m atom -s /bin/bash
+    useradd -d /home/atom -m atom -U -s /bin/bash
+
+USER atom
 
 # Turn atom into a python IDE
 # https://hackernoon.com/setting-up-atom-as-a-python-ide-a-how-to-guide-o6dd37ff
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends python3-pip && \
-    apt-get remove -y curl && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && \
+RUN PATH=${PATH}:/home/atom/.local/bin && \
     apm install linter linter-ui-default intentions busy-signal && \
     pip3 install flake8 && \
     apm install linter-flake8 && \
@@ -59,8 +59,10 @@ RUN apt-get update && \
     apm install minimap-git-diff && \
     apm install minimap-highlight-selected && \
     pip3 install pytest && \
-    apm install atom-python-test
+    apm install atom-python-test && \
+    apm install linter-jsonlint && \
+    apm install atom-beautify
 
-USER atom
-
-CMD ["/usr/bin/atom","-f","--no-sandbox"]
+COPY --chown=atom:atom entrypoint.sh /home/atom/entrypoint.sh
+RUN chmod +x /home/atom/entrypoint.sh
+CMD ["/home/atom/entrypoint.sh"]
