@@ -57,7 +57,7 @@ RUN PATH=${PATH}:/home/atom/.local/bin && \
     apm install atom-material-syntax && \
     apm install minimap && \
     apm install minimap-git-diff && \
-    apm install minimap-highlight-selected && \
+    apm install minimap-highlight-selected highlight-selected && \
     pip3 install pytest && \
     apm install atom-python-test && \
     apm install linter-jsonlint && \
@@ -65,4 +65,4 @@ RUN PATH=${PATH}:/home/atom/.local/bin && \
 
 COPY --chown=atom:atom entrypoint.sh /home/atom/entrypoint.sh
 RUN chmod +x /home/atom/entrypoint.sh
-CMD ["/home/atom/entrypoint.sh"]
+ENTRYPOINT ["/home/atom/entrypoint.sh"]
