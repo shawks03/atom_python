@@ -51,10 +51,10 @@ USER atom
 # https://hackernoon.com/setting-up-atom-as-a-python-ide-a-how-to-guide-o6dd37ff
 RUN PATH=${PATH}:/home/atom/.local/bin && \
     apm install linter linter-ui-default intentions busy-signal && \
-    pip install flake8 && \
+    pip --no-cache-dir install flake8 && \
     apm install linter-flake8 && \
     apm install autocomplete-python && \
-    pip install autopep8 && \
+    pip --no-cache-dir install autopep8 && \
     apm install python-autopep8 && \
     apm install script && \
     apm install atom-file-icons && \
@@ -62,7 +62,7 @@ RUN PATH=${PATH}:/home/atom/.local/bin && \
     apm install minimap && \
     apm install minimap-git-diff && \
     apm install minimap-highlight-selected highlight-selected && \
-    pip install pytest && \
+    pip --no-cache-dir install pytest && \
     apm install atom-python-test && \
     apm install linter-jsonlint && \
     apm install atom-beautify
