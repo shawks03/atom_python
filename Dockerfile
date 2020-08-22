@@ -63,6 +63,7 @@ RUN PATH=${PATH}:/home/atom/.local/bin && \
     apm install minimap-git-diff && \
     apm install minimap-highlight-selected highlight-selected && \
     pip --no-cache-dir install pytest pytest-mock pytest-asyncio && \
+    pip --no-cache-dir install coverage pytest-cov && \
     apm install atom-python-test && \
     apm install linter-jsonlint && \
     apm install atom-beautify
