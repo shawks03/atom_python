@@ -1,6 +1,6 @@
-FROM ubuntu:20.04
+FROM python:3.9.0-slim-buster
 
-ENV ATOM_VERSION v1.49.0
+ENV ATOM_VERSION v1.52.0
 
 ENV DEBIAN_FRONTEND=noninteractive
 
